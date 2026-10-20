@@ -42,16 +42,16 @@
   <div class="page">
     <!-- 1) Header -->
     <header class="header">
-      <a href="#" class="logo-btn" aria-label="Dr. Swati Kshirsagar">
+      <a href="#overview" class="logo-btn nav-tab-btn" data-target="overview" aria-label="Dr. Swati Kshirsagar Home">
         <span class="logo-text">SK</span>
       </a>
 
       <!-- Desktop Nav Pill -->
       <nav class="nav-pill" aria-label="Main Navigation">
-        <a href="#overview" class="nav-link active">Overview</a>
-        <a href="#training" class="nav-link">5-Day Training</a>
-        <a href="#clinic-setup" class="nav-link">Clinic Setup</a>
-        <a href="#contact" class="nav-link open-lead-modal">Enquire</a>
+        <button type="button" class="nav-link nav-tab-btn active" data-target="overview">Overview</button>
+        <button type="button" class="nav-link nav-tab-btn" data-target="training">5-Day Training</button>
+        <button type="button" class="nav-link nav-tab-btn" data-target="clinic-setup">Clinic Setup</button>
+        <button type="button" class="nav-link nav-tab-btn" data-target="enquire">Enquire</button>
       </nav>
 
       <!-- Desktop WhatsApp / Call CTA -->
@@ -71,10 +71,10 @@
     <div class="mobile-overlay" id="mobile-overlay" hidden></div>
     <div class="mobile-sheet" id="mobile-menu" hidden>
       <nav class="mobile-nav" aria-label="Mobile Navigation">
-        <a href="#overview" class="mobile-nav-link active" style="--i: 1;">Overview</a>
-        <a href="#training" class="mobile-nav-link" style="--i: 2;">5-Day Training</a>
-        <a href="#clinic-setup" class="mobile-nav-link" style="--i: 3;">Clinic Setup</a>
-        <a href="#contact" class="mobile-nav-link open-lead-modal" style="--i: 4;">Enquire</a>
+        <button type="button" class="mobile-nav-link nav-tab-btn active" data-target="overview" style="--i: 1; background: transparent; border: none; cursor: pointer;">Overview</button>
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="training" style="--i: 2; background: transparent; border: none; cursor: pointer;">5-Day Training</button>
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="clinic-setup" style="--i: 3; background: transparent; border: none; cursor: pointer;">Clinic Setup</button>
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="enquire" style="--i: 4; background: transparent; border: none; cursor: pointer;">Enquire</button>
         <a href="https://wa.me/919619182035?text=Hello%20Dr.%20Swati%2C%20I%20am%20interested%20in%20your%20hands-on%20ultrasound%20training%20and%20clinic%20setup%20program." target="_blank" rel="noopener noreferrer" class="mobile-signin-btn" style="--i: 5;">
           <i class="fa-brands fa-whatsapp"></i> WhatsApp Dr. Swati
         </a>
@@ -116,9 +116,10 @@
         Hands-on ultrasound training and turnkey clinic setup for radiologists and clinicians. Master live-scan obstetric and fetal diagnostics with senior consultant Dr. Swati Kshirsagar, achieve full PCPNDT compliance, and save ₹3.5L–₹5.0L on equipment procurement.
       </p>
 
-      <!-- CTA -->
+      <!-- CTA Row -->
       <div class="cta-wrap anim cta-anim" style="--d: 0.4s;">
-        <button type="button" class="cta-btn open-lead-modal">Apply for Next Batch</button>
+        <button type="button" class="cta-btn nav-tab-btn" data-target="enquire">Apply for Next Batch</button>
+        <button type="button" class="cta-btn-outline nav-tab-btn" data-target="training">Explore 5-Day Curriculum</button>
       </div>
     </main>
 
@@ -160,11 +161,122 @@
     </footer>
   </div>
 
-  <!-- Interactive Lead Capture Modal -->
-  <div class="lead-modal-backdrop" id="lead-modal" hidden>
+  <!-- ==========================================================================
+       MODAL 1: 5-Day Fast-Track Ultrasound Curriculum
+       ========================================================================== -->
+  <div class="modal-backdrop" id="modal-training" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="training-title">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      <span class="modal-badge"><i class="fa-solid fa-graduation-cap"></i> Intensive Clinical Track · Max 6 Doctors</span>
+      <h2 class="modal-title" id="training-title">5-Day Clinical Ultrasound Mastery</h2>
+      <p class="modal-subtitle">Direct 1-on-1 live-scan mentorship with Dr. Swati Kshirsagar (MD 2nd Rank Mumbai Univ, ISB MPM-CX, FMF UK). Practical case-based scanning to build immediate reporting confidence.</p>
+
+      <div class="curriculum-list">
+        <div class="curriculum-item">
+          <div class="curriculum-header">
+            <span class="curriculum-tag">DAY 01</span>
+            <span class="curriculum-name">Knobology, Ergonomics &amp; Abdomen</span>
+          </div>
+          <p class="curriculum-desc">Probe orientation, frequency harmonics, depth/gain optimization, color Doppler velocity scales, and systematic scanning of hepatobiliary, renal, and spleen pathology.</p>
+        </div>
+
+        <div class="curriculum-item">
+          <div class="curriculum-header">
+            <span class="curriculum-tag">DAY 02</span>
+            <span class="curriculum-name">Pelvic &amp; Transvaginal Ultrasound (TVS)</span>
+          </div>
+          <p class="curriculum-desc">Transabdominal and TVS techniques, follicular monitoring, endometrial patterns, IOTA classification for adnexal masses, and deep infiltrating endometriosis (DIE) mapping.</p>
+        </div>
+
+        <div class="curriculum-item">
+          <div class="curriculum-header">
+            <span class="curriculum-tag">DAY 03</span>
+            <span class="curriculum-name">11–13 Week First Trimester Genetic Scan</span>
+          </div>
+          <p class="curriculum-desc">FMF UK protocol: nuchal translucency (NT), nasal bone (NB), ductus venosus Doppler, tricuspid regurgitation, uterine artery Doppler, and early pre-eclampsia risk calculation.</p>
+        </div>
+
+        <div class="curriculum-item">
+          <div class="curriculum-header">
+            <span class="curriculum-tag">DAY 04</span>
+            <span class="curriculum-name">Level-II Target Anomaly &amp; Fetal Echo</span>
+          </div>
+          <p class="curriculum-desc">Sequential segmental fetal anatomy scan, CNS neurosonography planes, spine assessment, and fetal cardiac views (4-chamber, LVOT, RVOT, 3VT) to detect complex congenital heart defects.</p>
+        </div>
+
+        <div class="curriculum-item">
+          <div class="curriculum-header">
+            <span class="curriculum-tag">DAY 05</span>
+            <span class="curriculum-name">Obstetric Doppler &amp; Defensible Reporting</span>
+          </div>
+          <p class="curriculum-desc">Umbilical, middle cerebral (MCA), and uterine artery Doppler indices in IUGR. Medico-legal PCPNDT documentation and reproducible reporting templates.</p>
+        </div>
+      </div>
+
+      <button type="button" class="modal-submit-btn nav-tab-btn" data-target="enquire" data-interest="5-Day Fast-Track Hands-On Training">
+        Apply for 5-Day Batch <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: Turnkey Clinic Setup & Equipment Procurement
+       ========================================================================== -->
+  <div class="modal-backdrop" id="modal-clinic-setup" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="clinic-title">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      <span class="modal-badge"><i class="fa-solid fa-building-circle-check"></i> Turnkey Practice Launch · Save ₹3.5L–₹5.0L</span>
+      <h2 class="modal-title" id="clinic-title">Sonography Clinic Setup Assistance</h2>
+      <p class="modal-subtitle">Asset-light turnkey roadmap to launch your independent ultrasound clinic with complete PCPNDT compliance, OEM equipment discounts, and 90-day post-launch clinical support.</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-header">
+            <span class="step-tag">PILLAR 01</span>
+            <span class="step-name">PCPNDT Registration &amp; Advisory</span>
+          </div>
+          <p class="step-desc">End-to-end guidance for local authority licensing, Form A/F compliance protocols, audit-proof registers, and zero-error documentation.</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <span class="step-tag">PILLAR 02</span>
+            <span class="step-name">OEM Machine &amp; Probe Selection</span>
+          </div>
+          <p class="step-desc">Unbiased evaluation of GE, Mindray, Samsung, and Philips machines (₹12L–₹45L). Direct vendor negotiation passing ₹3.5L–₹5.0L in delta discounts directly to you.</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <span class="step-tag">PILLAR 03</span>
+            <span class="step-name">Clinic Layout &amp; Reporting PACS</span>
+          </div>
+          <p class="step-desc">Ergonomic room design, probe care standards, power backup, DICOM PACS integration, and structured WhatsApp/cloud report delivery setup.</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-header">
+            <span class="step-tag">PILLAR 04</span>
+            <span class="step-name">90-Day Clinical Handholding</span>
+          </div>
+          <p class="step-desc">Tele-reporting second opinions, image quality audits on your initial 100 scans, and operational mentorship to reach clinic break-even within 4 months.</p>
+        </div>
+      </div>
+
+      <button type="button" class="modal-submit-btn nav-tab-btn" data-target="enquire" data-interest="Turnkey Clinic Setup & Machine Procurement">
+        Get Clinic Setup Blueprint <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: Interactive Lead Capture (Enquire)
+       ========================================================================== -->
+  <div class="modal-backdrop" id="lead-modal" hidden>
     <div class="lead-modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
-      <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">&times;</button>
-      <h2 class="modal-title" id="modal-heading">Apply for Ultrasound Training &amp; Clinic Setup</h2>
+      <button type="button" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      <span class="modal-badge"><i class="fa-brands fa-whatsapp"></i> Instant Response · Dr. Swati Mentorship</span>
+      <h2 class="modal-title" id="modal-heading">Apply for Training / Clinic Setup</h2>
       <p class="modal-subtitle">Direct mentorship with Dr. Swati Kshirsagar. Limited seats per batch for personalized live-scan practice.</p>
 
       <form id="lead-form">

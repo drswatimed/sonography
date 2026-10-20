@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const burgerBtn = document.querySelector(".burger-btn");
   const mobileOverlay = document.getElementById("mobile-overlay");
   const mobileMenu = document.getElementById("mobile-menu");
-  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
   function openMenu() {
     if (!burgerBtn || !mobileOverlay || !mobileMenu) return;
@@ -110,75 +109,126 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileOverlay.addEventListener("click", closeMenu);
   }
 
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      mobileLinks.forEach((l) => l.classList.remove("active"));
-      link.classList.add("active");
-      closeMenu();
-    });
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (document.body.classList.contains("menu-open")) {
-        closeMenu();
-      }
-      closeLeadModal();
-    }
-  });
-
   window.addEventListener("resize", () => {
     if (window.innerWidth > 720 && document.body.classList.contains("menu-open")) {
       closeMenu();
     }
   });
 
-  /* Desktop nav link active state toggle on click */
-  const desktopLinks = document.querySelectorAll(".nav-pill .nav-link");
-  desktopLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      desktopLinks.forEach((l) => l.classList.remove("active"));
-      link.classList.add("active");
-    });
-  });
-
   /* ==========================================================================
-     3) Interactive Lead Capture Modal
+     3) Navigation Tabs & Interactive Modals
+     - Overview (main hero)
+     - 5-Day Training (curriculum modal)
+     - Clinic Setup (turnkey roadmap modal)
+     - Enquire (lead capture modal)
      ========================================================================== */
-  const leadModal = document.getElementById("lead-modal");
-  const modalCloseBtn = document.getElementById("modal-close-btn");
-  const openModalTriggers = document.querySelectorAll(".open-lead-modal");
-  const leadForm = document.getElementById("lead-form");
+  const modalTraining = document.getElementById("modal-training");
+  const modalClinic = document.getElementById("modal-clinic-setup");
+  const modalLead = document.getElementById("lead-modal");
+  const allModals = [modalTraining, modalClinic, modalLead].filter(Boolean);
 
-  function openLeadModal(e) {
-    if (e) e.preventDefault();
-    if (!leadModal) return;
-    leadModal.removeAttribute("hidden");
-    const nameInput = document.getElementById("doc-name");
-    if (nameInput) nameInput.focus();
-  }
+  const desktopNavBtns = document.querySelectorAll(".nav-pill .nav-tab-btn");
+  const mobileNavBtns = document.querySelectorAll(".mobile-nav .nav-tab-btn");
 
-  function closeLeadModal() {
-    if (!leadModal) return;
-    leadModal.setAttribute("hidden", "");
-  }
+  function updateActiveNav(targetName) {
+    desktopNavBtns.forEach((btn) => {
+      if (btn.getAttribute("data-target") === targetName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
 
-  openModalTriggers.forEach((trigger) => {
-    trigger.addEventListener("click", openLeadModal);
-  });
-
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener("click", closeLeadModal);
-  }
-
-  if (leadModal) {
-    leadModal.addEventListener("click", (e) => {
-      if (e.target === leadModal) {
-        closeLeadModal();
+    mobileNavBtns.forEach((btn) => {
+      if (btn.getAttribute("data-target") === targetName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
       }
     });
   }
 
+  function closeAllModals() {
+    allModals.forEach((m) => m.setAttribute("hidden", ""));
+    updateActiveNav("overview");
+  }
+
+  function openTargetView(target, optionalInterest) {
+    closeAllModals();
+    closeMenu();
+
+    if (target === "overview") {
+      updateActiveNav("overview");
+      return;
+    }
+
+    if (target === "training" && modalTraining) {
+      modalTraining.removeAttribute("hidden");
+      updateActiveNav("training");
+      return;
+    }
+
+    if (target === "clinic-setup" && modalClinic) {
+      modalClinic.removeAttribute("hidden");
+      updateActiveNav("clinic-setup");
+      return;
+    }
+
+    if (target === "enquire" && modalLead) {
+      modalLead.removeAttribute("hidden");
+      updateActiveNav("enquire");
+      if (optionalInterest) {
+        const interestSelect = document.getElementById("doc-interest");
+        if (interestSelect) interestSelect.value = optionalInterest;
+      }
+      const nameInput = document.getElementById("doc-name");
+      if (nameInput) setTimeout(() => nameInput.focus(), 100);
+      return;
+    }
+  }
+
+  // Handle all nav buttons and CTA links
+  const allNavTriggers = document.querySelectorAll(".nav-tab-btn");
+  allNavTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = trigger.getAttribute("data-target");
+      const interest = trigger.getAttribute("data-interest");
+      openTargetView(target, interest);
+    });
+  });
+
+  // Close buttons inside modals
+  document.querySelectorAll(".modal-close-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeAllModals();
+    });
+  });
+
+  // Click outside on modal backdrop
+  allModals.forEach((backdrop) => {
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) {
+        closeAllModals();
+      }
+    });
+  });
+
+  // Escape key closes modals and menu
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (document.body.classList.contains("menu-open")) {
+        closeMenu();
+      }
+      closeAllModals();
+    }
+  });
+
+  /* ==========================================================================
+     4) Interactive Lead Form Submission
+     ========================================================================== */
+  const leadForm = document.getElementById("lead-form");
   if (leadForm) {
     leadForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -189,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const interest = document.getElementById("doc-interest").value;
       const phone = document.getElementById("doc-phone").value.trim();
 
-      // Store lead locally
+      // Store lead in browser memory
       try {
         const existingLeads = JSON.parse(localStorage.getItem("doctor_enquiries") || "[]");
         existingLeads.push({
@@ -202,14 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         localStorage.setItem("doctor_enquiries", JSON.stringify(existingLeads));
       } catch (err) {
-        console.warn("Local storage error:", err);
+        console.warn("Storage error:", err);
       }
 
-      // Pre-fill WhatsApp message
+      // Pre-filled WhatsApp message
       const msg = `Hello Dr. Swati, I am ${name} (${qualification}) from ${city}. I am interested in ${interest}. My mobile number is ${phone}. Could you please share the curriculum and batch details?`;
       const waUrl = `https://wa.me/919619182035?text=${encodeURIComponent(msg)}`;
 
-      closeLeadModal();
+      closeAllModals();
       leadForm.reset();
 
       // Open WhatsApp directly
