@@ -107,7 +107,7 @@ body {
   }
 }
 
-/* Logo Button */
+/* Logo Button (Clean Geometric Monogram) */
 .logo-btn {
   display: grid;
   place-items: center;
@@ -115,12 +115,13 @@ body {
   height: clamp(40px, 4.4vw, 46px);
   border-radius: 50%;
   background: #ffffff;
+  color: #111111;
   box-shadow: var(--nav-shadow);
   flex-shrink: 0;
   border: none;
   cursor: pointer;
   text-decoration: none;
-  overflow: hidden;
+  user-select: none;
   transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -128,12 +129,13 @@ body {
   transform: scale(1.04);
 }
 
-.logo-btn img {
-  width: 78%;
-  height: 78%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
+.logo-text {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(14px, 1.5vw, 16px);
+  letter-spacing: -0.03em;
+  color: #111111;
+  line-height: 1;
 }
 
 /* Nav Pill */
@@ -185,7 +187,7 @@ body {
   box-shadow: -5px 0 0 #000000, 5px 0 0 #000000;
 }
 
-/* Sign In / Call Pill */
+/* WhatsApp / Contact Button */
 .sign-in-btn {
   display: inline-flex;
   align-items: center;
@@ -267,19 +269,11 @@ body {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  overflow: hidden;
-}
-
-.avatar-ring .avatar-inner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
 }
 
 .avatar-ring .avatar-inner i {
   color: #111111;
-  font-size: calc(var(--trust-size) * 0.36);
+  font-size: calc(var(--trust-size) * 0.38);
 }
 
 .avatar-1 {
@@ -376,7 +370,7 @@ body {
 
 /* Subhead */
 .subhead {
-  max-width: min(580px, 92%);
+  max-width: min(600px, 92%);
   margin: clamp(12px, 1.8vh, 18px) auto clamp(20px, 2.8vh, 28px);
   font-size: clamp(calc(13.5px + 2pt), calc(1.55vw + 2pt), calc(16.5px + 2pt));
   color: #d0d0d0;
@@ -447,7 +441,7 @@ body {
 }
 
 /* ==========================================================================
-   3) Stats Footer (Exact 4 metrics)
+   3) Stats Footer (Clinical & Practice Metrics)
    ========================================================================== */
 
 .stats-footer {
