@@ -90,8 +90,8 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 720px;
-  gap: clamp(18px, 2.8vw, 28px);
+  max-width: 780px;
+  gap: clamp(16px, 2.4vw, 24px);
   flex-shrink: 0;
   animation: slideDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -120,6 +120,7 @@ body {
   border: none;
   cursor: pointer;
   text-decoration: none;
+  overflow: hidden;
   transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -128,9 +129,10 @@ body {
 }
 
 .logo-btn img {
-  width: 72%;
-  height: 72%;
-  object-fit: contain;
+  width: 78%;
+  height: 78%;
+  object-fit: cover;
+  border-radius: 50%;
   display: block;
 }
 
@@ -141,7 +143,7 @@ body {
   justify-content: space-around;
   background: #ffffff;
   height: clamp(44px, 5.2vw, 48px);
-  max-width: 430px;
+  max-width: 480px;
   flex: 1;
   padding: 4px 8px;
   border-radius: 999px;
@@ -156,13 +158,14 @@ body {
   letter-spacing: -0.01em;
   color: var(--nav-text);
   text-decoration: none;
-  opacity: 0.5;
+  opacity: 0.55;
   padding: 8px 12px;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .nav-link.active {
@@ -182,15 +185,16 @@ body {
   box-shadow: -5px 0 0 #000000, 5px 0 0 #000000;
 }
 
-/* Sign In Pill */
+/* Sign In / Call Pill */
 .sign-in-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   background: var(--pill-dark);
   color: var(--sign-in-text);
   height: clamp(44px, 5.2vw, 48px);
-  padding: 0 clamp(18px, 2.2vw, 24px);
+  padding: 0 clamp(16px, 2vw, 22px);
   border-radius: 999px;
   box-shadow: var(--nav-shadow);
   font-family: var(--font-sans);
@@ -198,6 +202,7 @@ body {
   font-size: clamp(13px, 1.4vw, 15px);
   text-decoration: none;
   flex-shrink: 0;
+  white-space: nowrap;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
@@ -205,6 +210,11 @@ body {
   background: #323234;
   color: #ffffff;
   transform: translateY(-1px);
+}
+
+.sign-in-btn i {
+  color: #25d366;
+  font-size: 15px;
 }
 
 /* Burger Button (Hidden on desktop) */
@@ -223,7 +233,7 @@ body {
   justify-content: center;
   text-align: center;
   width: 100%;
-  max-width: 900px;
+  max-width: 920px;
   flex: 1;
   margin: 0 auto;
 }
@@ -241,11 +251,12 @@ body {
   background: var(--trust-bg);
   border: 1px solid var(--trust-border);
   border-radius: 50%;
-  padding: 5px;
+  padding: 4px;
   display: grid;
   place-items: center;
   position: relative;
   flex-shrink: 0;
+  overflow: hidden;
   transition: transform 0.35s ease;
 }
 
@@ -256,11 +267,19 @@ body {
   border-radius: 50%;
   display: grid;
   place-items: center;
+  overflow: hidden;
+}
+
+.avatar-ring .avatar-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .avatar-ring .avatar-inner i {
   color: #111111;
-  font-size: calc(var(--trust-size) * 0.34);
+  font-size: calc(var(--trust-size) * 0.36);
 }
 
 .avatar-1 {
@@ -300,7 +319,7 @@ body {
   border-radius: 999px;
   margin-left: calc(var(--trust-size) * -0.42);
   padding-left: calc(var(--trust-size) * 0.58);
-  padding-right: clamp(14px, 1.8vw, 20px);
+  padding-right: clamp(14px, 1.8vw, 22px);
 }
 
 .trust-pill span {
@@ -314,7 +333,7 @@ body {
 /* Headline */
 .headline {
   font-family: var(--font-display);
-  font-size: clamp(28px, 6.2vw, 80px);
+  font-size: clamp(28px, 6vw, 76px);
   font-weight: 400;
   color: #ffffff;
   line-height: 1.12;
@@ -328,7 +347,6 @@ body {
 }
 
 .headline.anim {
-  /* Parent .headline.anim has no reveal animation itself */
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
@@ -358,11 +376,11 @@ body {
 
 /* Subhead */
 .subhead {
-  max-width: min(500px, 92%);
+  max-width: min(580px, 92%);
   margin: clamp(12px, 1.8vh, 18px) auto clamp(20px, 2.8vh, 28px);
   font-size: clamp(calc(13.5px + 2pt), calc(1.55vw + 2pt), calc(16.5px + 2pt));
   color: #d0d0d0;
-  opacity: 0.8;
+  opacity: 0.85;
   line-height: 1.55;
   font-weight: 400;
   text-align: center;
@@ -371,7 +389,9 @@ body {
 /* CTA */
 .cta-wrap {
   display: inline-flex;
+  gap: 12px;
   justify-content: center;
+  align-items: center;
 }
 
 .cta-btn {
@@ -383,9 +403,11 @@ body {
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: clamp(13.5px, 1.5vw, 14.5px);
-  padding: clamp(11px, 1.6vh, 13px) clamp(22px, 3vw, 28px);
+  padding: clamp(11px, 1.6vh, 13px) clamp(24px, 3vw, 32px);
   border-radius: 999px;
   text-decoration: none;
+  cursor: pointer;
+  border: none;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15),
               0 0 22px rgba(255, 255, 255, 0.32),
               0 0 44px rgba(255, 255, 255, 0.12);
@@ -501,6 +523,135 @@ body {
     transform: translateY(0) scale(1);
     filter: blur(0);
   }
+}
+
+/* ==========================================================================
+   Interactive Lead Capture Modal
+   ========================================================================== */
+
+.lead-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: overlayIn 0.25s ease forwards;
+}
+
+.lead-modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.lead-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: #18181a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 32px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  animation: menuIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #28282a;
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background: #3f3f44;
+}
+
+.modal-title {
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: #a0a0a5;
+  line-height: 1.45;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #c4c2c3;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  background: #222225;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 0 14px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: #28282c;
+}
+
+.modal-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14.5px;
+  cursor: pointer;
+  margin-top: 18px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-submit-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.modal-submit-btn i {
+  color: #25d366;
+  font-size: 16px;
 }
 
 /* ==========================================================================
@@ -738,12 +889,12 @@ body {
 
 @media (max-height: 700px) {
   .page {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .trust-row {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .subhead {

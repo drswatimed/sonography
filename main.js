@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const burgerBtn = document.querySelector(".burger-btn");
   const mobileOverlay = document.getElementById("mobile-overlay");
   const mobileMenu = document.getElementById("mobile-menu");
-  const mobileLinks = document.querySelectorAll(".mobile-nav-link, .mobile-signin-btn");
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
   function openMenu() {
     if (!burgerBtn || !mobileOverlay || !mobileMenu) return;
@@ -119,8 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && document.body.classList.contains("menu-open")) {
-      closeMenu();
+    if (e.key === "Escape") {
+      if (document.body.classList.contains("menu-open")) {
+        closeMenu();
+      }
+      closeLeadModal();
     }
   });
 
@@ -133,9 +136,84 @@ document.addEventListener("DOMContentLoaded", () => {
   /* Desktop nav link active state toggle on click */
   const desktopLinks = document.querySelectorAll(".nav-pill .nav-link");
   desktopLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener("click", () => {
       desktopLinks.forEach((l) => l.classList.remove("active"));
       link.classList.add("active");
     });
   });
+
+  /* ==========================================================================
+     3) Interactive Lead Capture Modal
+     ========================================================================== */
+  const leadModal = document.getElementById("lead-modal");
+  const modalCloseBtn = document.getElementById("modal-close-btn");
+  const openModalTriggers = document.querySelectorAll(".open-lead-modal");
+  const leadForm = document.getElementById("lead-form");
+
+  function openLeadModal(e) {
+    if (e) e.preventDefault();
+    if (!leadModal) return;
+    leadModal.removeAttribute("hidden");
+    const nameInput = document.getElementById("doc-name");
+    if (nameInput) nameInput.focus();
+  }
+
+  function closeLeadModal() {
+    if (!leadModal) return;
+    leadModal.setAttribute("hidden", "");
+  }
+
+  openModalTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", openLeadModal);
+  });
+
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", closeLeadModal);
+  }
+
+  if (leadModal) {
+    leadModal.addEventListener("click", (e) => {
+      if (e.target === leadModal) {
+        closeLeadModal();
+      }
+    });
+  }
+
+  if (leadForm) {
+    leadForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("doc-name").value.trim();
+      const qualification = document.getElementById("doc-qual").value;
+      const city = document.getElementById("doc-city").value.trim();
+      const interest = document.getElementById("doc-interest").value;
+      const phone = document.getElementById("doc-phone").value.trim();
+
+      // Store lead locally
+      try {
+        const existingLeads = JSON.parse(localStorage.getItem("doctor_enquiries") || "[]");
+        existingLeads.push({
+          name,
+          qualification,
+          city,
+          interest,
+          phone,
+          submittedAt: new Date().toISOString()
+        });
+        localStorage.setItem("doctor_enquiries", JSON.stringify(existingLeads));
+      } catch (err) {
+        console.warn("Local storage error:", err);
+      }
+
+      // Pre-fill WhatsApp message
+      const msg = `Hello Dr. Swati, I am ${name} (${qualification}) from ${city}. I am interested in ${interest}. My mobile number is ${phone}. Could you please share the curriculum and batch details?`;
+      const waUrl = `https://wa.me/919619182035?text=${encodeURIComponent(msg)}`;
+
+      closeLeadModal();
+      leadForm.reset();
+
+      // Open WhatsApp directly
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+    });
+  }
 });
