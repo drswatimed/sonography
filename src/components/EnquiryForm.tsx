@@ -1,0 +1,30 @@
+import { useState, type FormEvent } from 'react';
+import { Loader2, CheckCircle2, AlertCircle, Send, MessageCircle } from 'lucide-react';
+import { submitEnquiry, type EnquiryInput } from '@/lib/supabase';
+import { whatsappLink } from '@/lib/site';
+
+type Props = { defaultInterest?: EnquiryInput['interest']; compact?: boolean };
+type Status = 'idle' | 'submitting' | 'success' | 'error';
+const qualifications = ['Gynecologist (MS/DGO)', 'Radiologist (MD/DNB/DMRD)', 'Sonologist'];
+const timelines = ['Within 30 days', 'Within 60 days', 'Within 90 days', 'Exploring for later'];
+
+export function EnquiryForm({ defaultInterest = 'both', compact = false }: Props) {
+  const [status, setStatus] = useState<Status>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [goal, setGoal] = useState(defaultInterest === 'training' ? 'Clinical Training Only' : 'Training + Machine Setup');
+  const [timeline, setTimeline] = useState('');
+  const [form, setForm] = useState<EnquiryInput>({ name: '', qualification: '', city: '', interest: defaultInterest, phone: '', email: '', message: '' });
+  function update<K extends keyof EnquiryInput>(key: K, value: EnquiryInput[K]) { setForm((current) => ({ ...current, [key]: value })); }
+  async function onSubmit(event: FormEvent) {
+    event.preventDefault(); setStatus('submitting'); setErrorMsg('');
+    try { await submitEnquiry({ ...form, interest: goal === 'Clinical Training Only' ? 'training' : 'both', message: `${form.message ? `${form.message}\n\n` : ''}Goal: ${goal}\nTimeline to launch: ${timeline}` }); setStatus('success'); }
+    catch (error) { setStatus('error'); setErrorMsg(error instanceof Error ? error.message : 'Something went wrong. Please try again.'); }
+  }
+  if (status === 'success') return <div className="card flex flex-col items-center p-8 text-center"><div className="grid h-14 w-14 place-items-center rounded-full bg-success-100 text-success-600"><CheckCircle2 className="h-8 w-8" /></div><h3 className="mt-4 text-xl font-bold text-ink-950">Your seat request is in</h3><p className="mt-2 max-w-sm text-sm text-ink-600">Thank you, {form.name.split(' ')[0] || 'Doctor'}. The team will share cohort dates and the fee-credit plan shortly.</p><a href={whatsappLink(`Hello, I just submitted an application for Precision FemSono. My name is ${form.name}.`)} target="_blank" rel="noopener noreferrer" className="btn-whatsapp mt-5"><MessageCircle className="h-4 w-4" /> Chat with the team now</a></div>;
+  return <form onSubmit={onSubmit} className="card p-6 sm:p-7"><div className={compact ? '' : 'grid gap-x-4 gap-y-4 sm:grid-cols-2'}>
+    <div className={compact ? 'mb-4' : ''}><label className="label" htmlFor="eq-name">Full name <span className="text-error-500">*</span></label><input id="eq-name" className="input" placeholder="Dr. Your Name" required value={form.name} onChange={(event) => update('name', event.target.value)} /></div>
+    <div className={compact ? 'mb-4' : ''}><label className="label" htmlFor="eq-qual">Medical degree <span className="text-error-500">*</span></label><select id="eq-qual" className="input" required value={form.qualification} onChange={(event) => update('qualification', event.target.value)}><option value="" disabled>Select your qualification</option>{qualifications.map((item) => <option key={item}>{item}</option>)}</select></div>
+    <div className={compact ? 'mb-4' : ''}><label className="label" htmlFor="eq-city">City / State <span className="text-error-500">*</span></label><input id="eq-city" className="input" placeholder="e.g. Pune, Maharashtra" required value={form.city} onChange={(event) => update('city', event.target.value)} /></div>
+    <div className={compact ? 'mb-4' : ''}><label className="label" htmlFor="eq-timeline">Timeline to launch <span className="text-error-500">*</span></label><select id="eq-timeline" className="input" required value={timeline} onChange={(event) => setTimeline(event.target.value)}><option value="" disabled>When do you want to start?</option>{timelines.map((item) => <option key={item}>{item}</option>)}</select></div>
+  </div><div className="mt-4"><label className="label">Your goal <span className="text-error-500">*</span></label><div className="grid gap-2 sm:grid-cols-2">{['Clinical Training Only', 'Training + Machine Setup'].map((item) => <button key={item} type="button" onClick={() => setGoal(item)} className={`rounded-xl px-3 py-3 text-left text-sm font-semibold ring-1 transition ${goal === item ? 'bg-teal-50 text-teal-800 ring-teal-300' : 'bg-white text-ink-600 ring-ink-200 hover:ring-teal-200'}`}>{item}</button>)}</div></div><div className="mt-4 grid gap-4 sm:grid-cols-2"><div><label className="label" htmlFor="eq-phone">Phone / WhatsApp</label><input id="eq-phone" type="tel" className="input" placeholder="+91 ..." value={form.phone} onChange={(event) => update('phone', event.target.value)} /></div><div><label className="label" htmlFor="eq-email">Email</label><input id="eq-email" type="email" className="input" placeholder="you@example.com" value={form.email} onChange={(event) => update('email', event.target.value)} /></div></div><div className="mt-4"><label className="label" htmlFor="eq-msg">Anything we should know?</label><textarea id="eq-msg" rows={compact ? 2 : 3} className="input resize-none" placeholder="Tell us about your current practice or preferred cohort timing." value={form.message} onChange={(event) => update('message', event.target.value)} /></div>{status === 'error' && <div className="mt-4 flex items-start gap-2 rounded-xl bg-error-50 p-3 text-sm text-error-700 ring-1 ring-error-200"><AlertCircle className="mt-0.5 h-4 w-4 shrink-0" /><span>{errorMsg}</span></div>}<button type="submit" disabled={status === 'submitting'} className="btn-primary mt-5 w-full">{status === 'submitting' ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</> : <><Send className="h-4 w-4" /> Check Batch Dates & Claim Fee Credit</>}</button><p className="mt-3 text-center text-xs text-ink-400">Your details are used only to respond to your enquiry.</p></form>;
+}
