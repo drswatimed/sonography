@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
      ========================================================================== */
   const tabPanels = {
     overview: document.getElementById("panel-overview"),
+    founder: document.getElementById("panel-founder"),
     training: document.getElementById("panel-training"),
     "clinic-setup": document.getElementById("panel-clinic-setup"),
     enquire: document.getElementById("panel-enquire")
@@ -235,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Pre-filled WhatsApp message
       const msg = `Hello Dr. Swati, I am ${name} (${qualification}) from ${city}. I am interested in ${interest}. My mobile number is ${phone}. Could you please share the curriculum and batch details?`;
-      const waUrl = `https://wa.me/919619182035?text=${encodeURIComponent(msg)}`;
+      const waUrl = `https://wa.me/918356907642?text=${encodeURIComponent(msg)}`;
 
       leadForm.reset();
 

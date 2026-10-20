@@ -28,7 +28,7 @@
     referrerpolicy="no-referrer"
   />
 
-  <link rel="stylesheet" href="styles.css?v=final3" />
+  <link rel="stylesheet" href="styles.css?v=final4" />
 </head>
 <body>
   <!-- Full-viewport cover video -->
@@ -52,13 +52,14 @@
       <!-- Desktop Nav Pill (Switches Tabs) -->
       <nav class="nav-pill" aria-label="Main Navigation">
         <button type="button" class="nav-link nav-tab-btn active" data-target="overview">Overview</button>
+        <button type="button" class="nav-link nav-tab-btn" data-target="founder">Founder Profile</button>
         <button type="button" class="nav-link nav-tab-btn" data-target="training">5-Day Training</button>
         <button type="button" class="nav-link nav-tab-btn" data-target="clinic-setup">Clinic Setup</button>
         <button type="button" class="nav-link nav-tab-btn" data-target="enquire">Enquire</button>
       </nav>
 
       <!-- Desktop WhatsApp CTA -->
-      <a href="https://wa.me/919619182035?text=Hello%20Dr.%20Swati%2C%20I%20am%20interested%20in%20your%20hands-on%20ultrasound%20training%20and%20clinic%20setup%20program." target="_blank" rel="noopener noreferrer" class="sign-in-btn">
+      <a href="https://wa.me/918356907642?text=Hello%20Dr.%20Swati%2C%20I%20am%20interested%20in%20your%20hands-on%20ultrasound%20training%20and%20clinic%20setup%20program." target="_blank" rel="noopener noreferrer" class="sign-in-btn">
         <i class="fa-brands fa-whatsapp"></i> WhatsApp Dr. Swati
       </a>
 
@@ -75,10 +76,11 @@
     <div class="mobile-sheet" id="mobile-menu" hidden>
       <nav class="mobile-nav" aria-label="Mobile Navigation">
         <button type="button" class="mobile-nav-link nav-tab-btn active" data-target="overview" style="--i: 1; background: transparent; border: none; cursor: pointer;">Overview</button>
-        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="training" style="--i: 2; background: transparent; border: none; cursor: pointer;">5-Day Training</button>
-        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="clinic-setup" style="--i: 3; background: transparent; border: none; cursor: pointer;">Clinic Setup</button>
-        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="enquire" style="--i: 4; background: transparent; border: none; cursor: pointer;">Enquire</button>
-        <a href="https://wa.me/919619182035?text=Hello%20Dr.%20Swati%2C%20I%20am%20interested%20in%20your%20hands-on%20ultrasound%20training%20and%20clinic%20setup%20program." target="_blank" rel="noopener noreferrer" class="mobile-signin-btn" style="--i: 5;">
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="founder" style="--i: 2; background: transparent; border: none; cursor: pointer;">Founder Profile</button>
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="training" style="--i: 3; background: transparent; border: none; cursor: pointer;">5-Day Training</button>
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="clinic-setup" style="--i: 4; background: transparent; border: none; cursor: pointer;">Clinic Setup</button>
+        <button type="button" class="mobile-nav-link nav-tab-btn" data-target="enquire" style="--i: 5; background: transparent; border: none; cursor: pointer;">Enquire</button>
+        <a href="https://wa.me/918356907642?text=Hello%20Dr.%20Swati%2C%20I%20am%20interested%20in%20your%20hands-on%20ultrasound%20training%20and%20clinic%20setup%20program." target="_blank" rel="noopener noreferrer" class="mobile-signin-btn" style="--i: 6;">
           <i class="fa-brands fa-whatsapp"></i> WhatsApp Dr. Swati
         </a>
       </nav>
@@ -91,9 +93,9 @@
         <div class="hero-content">
           <!-- Trust row -->
           <div class="trust-row anim" style="--d: 0.05s;">
-            <div class="avatar-ring avatar-1" title="Clinical Ultrasound & Fetal Medicine">
-              <div class="avatar-inner">
-                <i class="fa-solid fa-stethoscope"></i>
+            <div class="avatar-ring avatar-1" title="Dr. Swati Kshirsagar — Senior Consultant Radiologist">
+              <div class="avatar-inner" style="overflow: hidden; padding: 0;">
+                <img src="assets/dr_swati.png" alt="Dr. Swati Kshirsagar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
               </div>
             </div>
             <div class="avatar-ring avatar-2" title="ISB MPM-CX Alumna & FMF UK Certified">
@@ -106,8 +108,8 @@
                 <i class="fa-solid fa-user-doctor"></i>
               </div>
             </div>
-            <div class="trust-pill">
-              <span>Mentored by Dr. Swati Kshirsagar · 23+ Yrs Clinical Experience</span>
+            <div class="trust-pill nav-tab-btn" data-target="founder" style="cursor: pointer;" title="Click to view Founder Profile">
+              <span>Mentored by Dr. Swati Kshirsagar · 23+ Yrs Clinical Experience <i class="fa-solid fa-chevron-right" style="font-size: 10px; opacity: 0.7; margin-left: 4px;"></i></span>
             </div>
           </div>
 
@@ -130,7 +132,59 @@
         </div>
       </section>
 
-      <!-- TAB 2: 5-DAY TRAINING CURRICULUM -->
+      <!-- TAB: FOUNDER PROFILE -->
+      <section class="tab-panel" id="panel-founder" aria-label="Founder Profile">
+        <div class="panel-card" style="max-width: 820px;">
+          <span class="panel-badge"><i class="fa-solid fa-award"></i> Senior Consultant Radiologist &amp; Lead Mentor</span>
+          
+          <div class="founder-grid">
+            <div class="founder-photo-col">
+              <div class="founder-image-wrapper">
+                <img src="assets/dr_swati.png" alt="Dr. Swati Kshirsagar" class="founder-portrait" />
+              </div>
+              <div class="founder-mini-badges">
+                <span class="founder-pill">MD (2nd Rank Mumbai Univ)</span>
+                <span class="founder-pill">ISB MPM-CX Alumna</span>
+                <span class="founder-pill">FMF UK Certified #92185</span>
+              </div>
+            </div>
+
+            <div class="founder-bio-col">
+              <h2 class="founder-name">Dr. Swati Kshirsagar</h2>
+              <p class="founder-tagline">Senior Consultant Radiologist &amp; Fetal Medicine Specialist · 23+ Years Post-MD Clinical Leadership</p>
+
+              <div class="founder-roles-box">
+                <div class="role-item">
+                  <i class="fa-solid fa-hospital"></i>
+                  <span><strong>HOD Radiology:</strong> Dr. Babasaheb Ambedkar Municipal General Hospital, Kandivali</span>
+                </div>
+                <div class="role-item">
+                  <i class="fa-solid fa-hospital-user"></i>
+                  <span><strong>HOD Radiology:</strong> Nirali A M Naik Charitable Healthcare Facility, Powai</span>
+                </div>
+              </div>
+
+              <blockquote class="founder-quote">
+                “Ultrasound diagnostics cannot be learned through pre-recorded videos. Real diagnostic confidence comes from holding the probe alongside a mentor, identifying real pathologies in real patients, and writing audit-proof, defensible reports.”
+              </blockquote>
+
+              <p class="founder-description">
+                Having mentored doctors across India and guided 50,000+ clinical scans, Dr. Swati provides hands-on ultrasound mentorship and turnkey clinic setup assistance. She empowers practicing radiologists and clinicians to own and scale their independent ultrasound practices with full PCPNDT compliance and direct OEM machine procurement savings.
+              </p>
+
+              <div class="founder-action-row">
+                <button type="button" class="form-submit-btn nav-tab-btn" data-target="enquire" data-interest="Full Comprehensive Train + Launch Track" style="margin-top: 0; width: auto; padding: 10px 22px;">
+                  Train with Dr. Swati <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <a href="https://wa.me/918356907642?text=Hello%20Dr.%20Swati%2C%20I%20would%20like%20to%20connect%20regarding%20mentorship%20and%20training." target="_blank" rel="noopener noreferrer" class="sign-in-btn" style="height: 44px; display: inline-flex; align-items: center; gap: 8px;">
+                  <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- TAB: 5-DAY TRAINING CURRICULUM -->
       <section class="tab-panel" id="panel-training" aria-label="5-Day Training">
         <div class="panel-card">
           <span class="panel-badge"><i class="fa-solid fa-graduation-cap"></i> Intensive Hands-On Track · Max 6 Doctors</span>
@@ -141,9 +195,9 @@
             <div class="grid-card">
               <div class="card-header-row">
                 <span class="card-tag">DAY 01</span>
-                <span class="card-title">Knobology &amp; Abdomen</span>
+                <span class="card-title">Knobology &amp; Pelvis</span>
               </div>
-              <p class="card-desc">Probe ergonomics, depth/gain, frequency harmonics, Doppler scales, and systematic hepatobiliary &amp; renal pathology scanning.</p>
+              <p class="card-desc">Probe ergonomics, depth/gain, frequency harmonics, Doppler scales, and systematic pelvic scanning orientation.</p>
             </div>
 
             <div class="grid-card">
@@ -157,25 +211,25 @@
             <div class="grid-card">
               <div class="card-header-row">
                 <span class="card-tag">DAY 03</span>
-                <span class="card-title">11–13w Genetic Scan</span>
+                <span class="card-title">Early Pregnancy &amp; Viability</span>
               </div>
-              <p class="card-desc">FMF UK protocol: nuchal translucency (NT), nasal bone (NB), ductus venosus, tricuspid Doppler, and early pre-eclampsia risk calculation.</p>
+              <p class="card-desc">Intrauterine pregnancy confirmation, crown-rump length (CRL), cardiac flicker, subchorionic bleed, and systematic tubal &amp; ectopic exclusion.</p>
             </div>
 
             <div class="grid-card">
               <div class="card-header-row">
                 <span class="card-tag">DAY 04</span>
-                <span class="card-title">Level-II Anomaly &amp; Echo</span>
+                <span class="card-title">Fetal Growth, Biometry &amp; Doppler</span>
               </div>
-              <p class="card-desc">Targeted fetal anatomy survey, CNS neurosonography planes, spine assessment, and 4-chamber/outflow tracts cardiac evaluation.</p>
+              <p class="card-desc">Standard fetal biometry (BPD, HC, AC, FL), estimated fetal weight (EFW), amniotic fluid index (AFI), umbilical/uterine Doppler for IUGR, and breast screening.</p>
             </div>
 
             <div class="grid-card grid-card-full">
               <div class="card-header-row">
                 <span class="card-tag">DAY 05</span>
-                <span class="card-title">Obstetric Doppler &amp; Defensible Reporting</span>
+                <span class="card-title">Obstetric Reporting &amp; Practice SOPs</span>
               </div>
-              <p class="card-desc">Umbilical, MCA, and uterine artery Doppler indices in IUGR. Medico-legal PCPNDT documentation and reproducible reporting templates.</p>
+              <p class="card-desc">Defensible clinical reporting templates, medico-legal PCPNDT daily Form-F compliance registers, and hands-on clinic go-live simulation.</p>
             </div>
           </div>
 
@@ -286,7 +340,7 @@
           </form>
 
           <div class="enquiry-contact-links">
-            <a href="tel:+919619182035"><i class="fa-solid fa-phone"></i> +91 96191 82035</a>
+            <a href="tel:+918356907642"><i class="fa-solid fa-phone"></i> +91 83569 07642</a>
             <span>•</span>
             <a href="mailto:drswatidk@gmail.com"><i class="fa-solid fa-envelope"></i> drswatidk@gmail.com</a>
           </div>
@@ -332,6 +386,6 @@
     </footer>
   </div>
 
-  <script src="main.js?v=final3"></script>
+  <script src="main.js?v=final4"></script>
 </body>
 </html>

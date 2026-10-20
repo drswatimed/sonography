@@ -90,7 +90,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 820px;
+  max-width: 900px;
   gap: clamp(14px, 2.2vw, 24px);
   flex-shrink: 0;
   animation: slideDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -145,7 +145,7 @@ body {
   justify-content: space-around;
   background: #ffffff;
   height: clamp(44px, 5.2vw, 48px);
-  max-width: 500px;
+  max-width: 600px;
   flex: 1;
   padding: 4px 8px;
   border-radius: 999px;
@@ -156,12 +156,12 @@ body {
   position: relative;
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: clamp(12.5px, 1.35vw, 14.5px);
+  font-size: clamp(12px, 1.25vw, 14px);
   letter-spacing: -0.01em;
   color: var(--nav-text);
   text-decoration: none;
   opacity: 0.55;
-  padding: 8px 12px;
+  padding: 6px clamp(6px, 1vw, 11px);
   transition: opacity 0.2s ease;
   white-space: nowrap;
   cursor: pointer;
@@ -768,6 +768,136 @@ select.form-input {
   white-space: nowrap;
 }
 
+
+/* ==========================================================================
+   Founder Profile Section Styles
+   ========================================================================== */
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+
+.founder-photo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.founder-image-wrapper {
+  position: relative;
+  width: 190px;
+  height: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 24px rgba(255, 255, 255, 0.08);
+  background: #111113;
+}
+
+.founder-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.founder-mini-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.founder-pill {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: #d8d8d8;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.founder-bio-col {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  text-align: left;
+}
+
+.founder-name {
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.founder-tagline {
+  font-size: clamp(12px, 1.3vw, 13.5px);
+  color: #a0a0a0;
+  line-height: 1.4;
+}
+
+.founder-roles-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #c4c2c3;
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-item i {
+  color: #ffffff;
+  font-size: 12px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.founder-quote {
+  border-left: 2px solid #ffffff;
+  padding-left: 12px;
+  margin: 2px 0;
+  font-style: italic;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #e0e0e0;
+}
+
+.founder-description {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #b0b0b0;
+}
+
+.founder-action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
 /* ==========================================================================
    Shared Entrance Animation
    ========================================================================== */
@@ -1006,6 +1136,27 @@ select.form-input {
     max-height: 68vh;
     padding: 18px 16px;
     border-radius: 20px;
+  }
+
+    /* Founder Mobile Layout */
+  .founder-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .founder-bio-col {
+    text-align: center;
+    align-items: center;
+  }
+
+  .founder-quote {
+    text-align: left;
+  }
+
+  .founder-action-row {
+    justify-content: center;
   }
 
   /* Stats Footer 2-column grid */
