@@ -2,11 +2,150 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   /* ==========================================================================
-     1) Count-Up Animation for Stats
-     - easeOutCubic easing
-     - duration: 1500 + i * 80 ms
-     - start offset: 480 + i * 90 ms
-     - once via IntersectionObserver threshold 0.25
+     1) Tab Switching Logic (Overview, 5-Day Training, Clinic Setup, Enquire)
+     ========================================================================== */
+  const tabPanels = {
+    overview: document.getElementById("panel-overview"),
+    training: document.getElementById("panel-training"),
+    "clinic-setup": document.getElementById("panel-clinic-setup"),
+    enquire: document.getElementById("panel-enquire")
+  };
+
+  const desktopNavBtns = document.querySelectorAll(".nav-pill .nav-tab-btn");
+  const mobileNavBtns = document.querySelectorAll(".mobile-nav .nav-tab-btn");
+
+  function switchTab(targetName, optionalInterest) {
+    if (!tabPanels[targetName]) {
+      targetName = "overview";
+    }
+
+    // Toggle active panel
+    Object.keys(tabPanels).forEach((key) => {
+      const panel = tabPanels[key];
+      if (panel) {
+        if (key === targetName) {
+          panel.classList.add("active");
+        } else {
+          panel.classList.remove("active");
+        }
+      }
+    });
+
+    // Update active nav button indicators
+    desktopNavBtns.forEach((btn) => {
+      if (btn.getAttribute("data-target") === targetName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    mobileNavBtns.forEach((btn) => {
+      if (btn.getAttribute("data-target") === targetName) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    // If interest passed, pre-select in dropdown
+    if (optionalInterest) {
+      const interestSelect = document.getElementById("doc-interest");
+      if (interestSelect) {
+        interestSelect.value = optionalInterest;
+      }
+    }
+
+    // Auto-focus name input if enquire tab
+    if (targetName === "enquire") {
+      const nameInput = document.getElementById("doc-name");
+      if (nameInput) {
+        setTimeout(() => nameInput.focus(), 150);
+      }
+    }
+
+    // Update hash cleanly without jump
+    try {
+      history.replaceState(null, "", `#${targetName}`);
+    } catch (e) {}
+
+    // Close mobile drawer if open
+    closeMenu();
+  }
+
+  // Bind click on all buttons/links with .nav-tab-btn
+  document.querySelectorAll(".nav-tab-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = btn.getAttribute("data-target");
+      const interest = btn.getAttribute("data-interest");
+      switchTab(target, interest);
+    });
+  });
+
+  // Check URL hash on initial load
+  const initialHash = window.location.hash.replace(/^#/, "").trim();
+  if (initialHash && tabPanels[initialHash]) {
+    switchTab(initialHash);
+  }
+
+  /* ==========================================================================
+     2) Mobile Navigation Menu
+     ========================================================================== */
+  const burgerBtn = document.querySelector(".burger-btn");
+  const mobileOverlay = document.getElementById("mobile-overlay");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  function openMenu() {
+    if (!burgerBtn || !mobileOverlay || !mobileMenu) return;
+    burgerBtn.setAttribute("aria-expanded", "true");
+    mobileOverlay.removeAttribute("hidden");
+    mobileMenu.removeAttribute("hidden");
+    document.body.classList.add("menu-open");
+  }
+
+  function closeMenu() {
+    if (!burgerBtn || !mobileOverlay || !mobileMenu) return;
+    burgerBtn.setAttribute("aria-expanded", "false");
+    mobileOverlay.setAttribute("hidden", "");
+    mobileMenu.setAttribute("hidden", "");
+    document.body.classList.remove("menu-open");
+  }
+
+  function toggleMenu() {
+    const isExpanded = burgerBtn.getAttribute("aria-expanded") === "true";
+    if (isExpanded) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  if (burgerBtn) {
+    burgerBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+  }
+
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener("click", closeMenu);
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 720 && document.body.classList.contains("menu-open")) {
+      closeMenu();
+    }
+  });
+
+  /* ==========================================================================
+     3) Count-Up Animation for Stats
      ========================================================================== */
   const statNumbers = document.querySelectorAll(".stat-number");
 
@@ -65,167 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================================================================
-     2) Mobile Navigation Menu
-     - Toggle aria-expanded, hidden, body.menu-open
-     - Close on overlay click, Escape key, link click, or resize > 720px
-     ========================================================================== */
-  const burgerBtn = document.querySelector(".burger-btn");
-  const mobileOverlay = document.getElementById("mobile-overlay");
-  const mobileMenu = document.getElementById("mobile-menu");
-
-  function openMenu() {
-    if (!burgerBtn || !mobileOverlay || !mobileMenu) return;
-    burgerBtn.setAttribute("aria-expanded", "true");
-    mobileOverlay.removeAttribute("hidden");
-    mobileMenu.removeAttribute("hidden");
-    document.body.classList.add("menu-open");
-  }
-
-  function closeMenu() {
-    if (!burgerBtn || !mobileOverlay || !mobileMenu) return;
-    burgerBtn.setAttribute("aria-expanded", "false");
-    mobileOverlay.setAttribute("hidden", "");
-    mobileMenu.setAttribute("hidden", "");
-    document.body.classList.remove("menu-open");
-  }
-
-  function toggleMenu() {
-    const isExpanded = burgerBtn.getAttribute("aria-expanded") === "true";
-    if (isExpanded) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  }
-
-  if (burgerBtn) {
-    burgerBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-  }
-
-  if (mobileOverlay) {
-    mobileOverlay.addEventListener("click", closeMenu);
-  }
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 720 && document.body.classList.contains("menu-open")) {
-      closeMenu();
-    }
-  });
-
-  /* ==========================================================================
-     3) Navigation Tabs & Interactive Modals
-     - Overview (main hero)
-     - 5-Day Training (curriculum modal)
-     - Clinic Setup (turnkey roadmap modal)
-     - Enquire (lead capture modal)
-     ========================================================================== */
-  const modalTraining = document.getElementById("modal-training");
-  const modalClinic = document.getElementById("modal-clinic-setup");
-  const modalLead = document.getElementById("lead-modal");
-  const allModals = [modalTraining, modalClinic, modalLead].filter(Boolean);
-
-  const desktopNavBtns = document.querySelectorAll(".nav-pill .nav-tab-btn");
-  const mobileNavBtns = document.querySelectorAll(".mobile-nav .nav-tab-btn");
-
-  function updateActiveNav(targetName) {
-    desktopNavBtns.forEach((btn) => {
-      if (btn.getAttribute("data-target") === targetName) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-
-    mobileNavBtns.forEach((btn) => {
-      if (btn.getAttribute("data-target") === targetName) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-  }
-
-  function closeAllModals() {
-    allModals.forEach((m) => m.setAttribute("hidden", ""));
-    updateActiveNav("overview");
-  }
-
-  function openTargetView(target, optionalInterest) {
-    closeAllModals();
-    closeMenu();
-
-    if (target === "overview") {
-      updateActiveNav("overview");
-      return;
-    }
-
-    if (target === "training" && modalTraining) {
-      modalTraining.removeAttribute("hidden");
-      updateActiveNav("training");
-      return;
-    }
-
-    if (target === "clinic-setup" && modalClinic) {
-      modalClinic.removeAttribute("hidden");
-      updateActiveNav("clinic-setup");
-      return;
-    }
-
-    if (target === "enquire" && modalLead) {
-      modalLead.removeAttribute("hidden");
-      updateActiveNav("enquire");
-      if (optionalInterest) {
-        const interestSelect = document.getElementById("doc-interest");
-        if (interestSelect) interestSelect.value = optionalInterest;
-      }
-      const nameInput = document.getElementById("doc-name");
-      if (nameInput) setTimeout(() => nameInput.focus(), 100);
-      return;
-    }
-  }
-
-  // Handle all nav buttons and CTA links
-  const allNavTriggers = document.querySelectorAll(".nav-tab-btn");
-  allNavTriggers.forEach((trigger) => {
-    trigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      const target = trigger.getAttribute("data-target");
-      const interest = trigger.getAttribute("data-interest");
-      openTargetView(target, interest);
-    });
-  });
-
-  // Close buttons inside modals
-  document.querySelectorAll(".modal-close-btn").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      closeAllModals();
-    });
-  });
-
-  // Click outside on modal backdrop
-  allModals.forEach((backdrop) => {
-    backdrop.addEventListener("click", (e) => {
-      if (e.target === backdrop) {
-        closeAllModals();
-      }
-    });
-  });
-
-  // Escape key closes modals and menu
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      if (document.body.classList.contains("menu-open")) {
-        closeMenu();
-      }
-      closeAllModals();
-    }
-  });
-
-  /* ==========================================================================
      4) Interactive Lead Form Submission
      ========================================================================== */
   const leadForm = document.getElementById("lead-form");
@@ -259,7 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const msg = `Hello Dr. Swati, I am ${name} (${qualification}) from ${city}. I am interested in ${interest}. My mobile number is ${phone}. Could you please share the curriculum and batch details?`;
       const waUrl = `https://wa.me/919619182035?text=${encodeURIComponent(msg)}`;
 
-      closeAllModals();
       leadForm.reset();
 
       // Open WhatsApp directly
